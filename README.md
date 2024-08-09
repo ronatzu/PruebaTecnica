@@ -1,73 +1,75 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# API de Gestión de Usuarios
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Esta API proporciona operaciones CRUD para la gestión de documentos en la colección de `users`, así como funcionalidad de autenticación para iniciar sesión.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Endpoints
 
-## Description
+### Operaciones CRUD para `users`
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **GET /auth/login**
+  -Usando Postman  se puede observar que el endpoint de Login proporciona un token JWT  en base a las credenciales de de acceso , segun el requerimiento de que la password debe estar en base al email.
 
-## Installation
+   ![imagen](https://github.com/user-attachments/assets/f0e82faa-7875-4a48-9ee6-cd4ac4a70025)
+  -En cuanto exista algun error en el apartado de contraseña , se muestan metodos HTTP de respuesta , ya que se validan los datos de entreda.
+   ![imagen](https://github.com/user-attachments/assets/736b773d-23b9-41f5-94ff-2f43d5db8055)
 
-```bash
-$ npm install
-```
 
-## Running the app
+  -En caso de no raelizar el login  , no se podra acceder a los demas endpoint, ya que es necesario el token generado  el cual se configuro con una duracion maxima de 60s ,con fines de prueba.
 
-```bash
-# development
-$ npm run start
+  ![imagen](https://github.com/user-attachments/assets/64050c33-fb8b-45a6-808d-8c6c4980b0cd)
 
-# watch mode
-$ npm run start:dev
+- **GET /users**
 
-# production mode
-$ npm run start:prod
-```
+  - *Descripción*: Obtiene todos los la coleccion de datos  de usuarios.
+  - Para acceder a este metodo ,es necesario haberse autenticado anteriormente , considerando la estructura de datos establecida:
+  
+  ![imagen](https://github.com/user-attachments/assets/3e5a6751-aaa4-445a-89f3-78a8a773f1f5)
 
-## Test
+  -Para acceder a este seervicio se requiere un token proporcionado al realizar el login , para este ejemplo se utilizo  el siguiente  :
+  ```json
+  
+  {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlRlc3RAZXhhbXBsZS5jb20iLCJpYXQiOjE3MjMyNDA5MTksImV4cCI6MTcyMzI0MDk3OX0.tvbrI8L2TyAQKMYSCAJnTpk2j-fLhF-Az2XeJVYeV6M"
+  }
+  
+  ```
 
-```bash
-# unit tests
-$ npm run test
+  -Teniendo la siguiente salida al aplicar el token:
+    ![imagen](https://github.com/user-attachments/assets/b9035a02-6a05-4b4e-b9bc-2c65478a5638)
 
-# e2e tests
-$ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
-```
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+  - **GET /users/:id**
 
-## Stay in touch
+  - *Descripción*: Obtiene un documento específico de la colección según su `_id`.
+  - Con el token generado  y  el id generado 66b6742310c3bea082a9fd8a , se puede obtejer el usuario generado en la base de datos:
+ 
+    ![imagen](https://github.com/user-attachments/assets/0baa1e16-5e55-4328-83b1-5cfffd46a8c6)
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+ 
 
-## License
+- **POST /users**
+  - *Descripción*: Inserta un nuevo documento en la colección de `users`.
+   -Para ello se envia la siguent solitud :
+    
+  ```json
+  {   
+    "name":"Test1",
+	  "email":"Test1@example.com",
+    "age":49
+  }
+  ```
+ 
+-Se obtiene la siguietne respuesta :
 
-Nest is [MIT licensed](LICENSE).
+  ```json
+    {
+    "name": "Test1",
+    "email": "Test1@example.com",
+    "age": 49,
+    "_id": "66b681f2336d23550e64c425",
+    "password": "$2b$10$8ydGv1b.fMHAHB8JiM9D4uBwpr7wTjC9u1w3g5jtrhjzGbN0BykWG"
+    }
+  - **Respuesta**: Documento del usuario recién creado.
+  ```
