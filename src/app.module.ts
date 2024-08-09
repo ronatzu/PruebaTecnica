@@ -10,7 +10,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       isGlobal: true,
       
     }
-  ),UserModule, AuthModule,MongooseModule.forRoot(process.env.DATABASE_MONGO)],
+  ),UserModule, AuthModule,MongooseModule.forRoot('mongodb+srv://ronarost:ContraseñaPruebaTecnica@crud-pt.l1bc5.mongodb.net/?retryWrites=true&w=majority&appName=CRUD-PT')],
   controllers: [],
   providers: [], 
 })
