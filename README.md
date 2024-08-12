@@ -13,7 +13,7 @@ Esta API proporciona operaciones CRUD para la gestión de documentos en la colec
 
  - Tener disponible postman y  descargar el siguiente archivo para importarlo en la aplicacion de Postman
 
-      https://we.tl/t-3OJHblKvLM
+      https://we.tl/t-0HdNgBShkc
 
  - Al importar el archivo se ecuentran configurado con  la direccion de railway en donde se encuentra desplegado , asi mismo con una varible global que hace referencia al token JWT generado al realizar el login . 
 
